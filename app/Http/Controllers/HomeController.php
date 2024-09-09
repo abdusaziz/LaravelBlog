@@ -37,7 +37,7 @@ class HomeController extends Controller
 
     public function categorypage(){
         $categories = category::all();
-        return view('home.categoryviewpage',compact('categories'));
+        return view('home.categorypage',compact('categories'));
     }
 
     public function tagpage(){
