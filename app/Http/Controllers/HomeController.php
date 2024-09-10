@@ -11,14 +11,15 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     public function index(){
+        $posts = post::all();
         if(Auth::id()){
             $usertype = Auth()->user()->usertype;
         }
         if($usertype=='user'){
-            return view('home.homepage');
+            return view('admin.adminhome',compact('posts'));
         }
         else if($usertype=='admin'){
-            return view('admin.adminhome');
+            return view('admin.adminhome',compact('posts'));
         }
         else{
             return redirect()->back();
