@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\category;
 use App\Models\post;
+use App\Models\tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = post::all();
+        $posts = post::paginate(5);
         return view('admin.adminpost')->with('posts',$posts);
     }
 
@@ -22,7 +24,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.adminpostcreate');
+        $categories = category::all();
+        $tags       =   tag::all();
+        return view('admin.adminpostcreate',compact(['categories','tags']));
     }
 
     /**
@@ -30,6 +34,8 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
+        // dd($request);
         $user = Auth()->user();
         $post = new post();
 
@@ -39,6 +45,7 @@ class PostController extends Controller
         $post->user_id = $user->id;
         $post->usertype = $user->usertype;
         $post->post_status = "Active";
+        $post->category_id     =   $request->category;
 
         $image = $request->image;
 
@@ -48,6 +55,7 @@ class PostController extends Controller
             $post->image = $image_name;
 
         }
+
 
         $post->save();
         return redirect()->back()->with('message', 'Post created successfully.');

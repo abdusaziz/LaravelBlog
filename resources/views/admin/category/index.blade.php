@@ -1,10 +1,11 @@
 @extends('admin.index')
 @section('pagecss')
 <style>
-  .img_resize{
-    width: 75px;
-    height: 50px;
-  }
+    .img_resize {
+        width: 75px;
+        height: 50px;
+    }
+
 </style>
 @endsection
 @section('content')
@@ -15,44 +16,52 @@
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
                     <i class="fas fa-table me-1"></i>
-                    DataTable Example
+                    Categories
                 </div>
-                <a class="btn btn-primary" href="{{ route('post.create') }}">Create New</a>
+                <a class="btn btn-primary" href="{{ route('category.create') }}">Create New</a>
             </div>
             <div class="card-body">
                 <table id="datatablesSimple">
                     <thead>
                         <tr>
-                            <th>Posted On</th>
+                            <th>Created On</th>
                             <th>Title</th>
-                            <th>Description</th>
-                            <th>Post By</th>
-                            <th>Status</th>
-                            <th>User Type</th>
-                            <th>Image</th>
+                            <th>MetaTtile</th>
+                            <th>Slug</th>
+                            <th>Content</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Posted On</th>
+                            <th>Created On</th>
                             <th>Title</th>
-                            <th>Description</th>
-                            <th>Post By</th>
-                            <th>Status</th>
-                            <th>User Type</th>
-                            <th>Image</th>
+                            <th>MetaTtile</th>
+                            <th>Slug</th>
+                            <th>Content</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        @forelse ( $posts as $post)
+                        @forelse ( $categories as $category)
                         <tr>
-                            <td>{{$post->created_at}}</td>
-                            <td>{{$post->title}}</td>
-                            <td>{{$post->description}}</td>
-                            <td>{{$post->user_name}}</td>
-                            <td>{{$post->post_status}}</td>
-                            <td>{{$post->usertype}}</td>
-                            <td> <img src="{{asset('post_images/'.$post->image)}}" class="img_resize" alt="post image"> </td>
+                            <td>{{$category->created_at}}</td>
+                            <td>{{$category->title}}</td>
+                            <td>{{$category->metatitle}}</td>
+                            <td>{{$category->slug}}</td>
+                            <td>{{$category->content}}</td>
+                            <td>
+                                <a href="{{ route('category.edit',$category->id) }}" class="btn btn-primary">Edit</a>
+                            </td>
+                            <td>
+                                <form action="{{ route('category.destroy',$category->id) }}" method="POST" class="">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" name="Submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                         @empty
                         <tr>
@@ -70,7 +79,8 @@
                     </tbody>
                 </table>
                 <div class="d-flex justify-content-center">
-                    {{ $posts->links('pagination::bootstrap-4') }}
+                    {{ $categories->links('pagination::bootstrap-4') }}
+                    <!-- Use paginated categories -->
                 </div>
             </div>
         </div>

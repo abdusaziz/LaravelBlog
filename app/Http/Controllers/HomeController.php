@@ -28,7 +28,9 @@ class HomeController extends Controller
 
     public function homepage(){
         $posts = Post::selectRaw('posts.*, SUBSTRING(description, 1, 100) as shortdescription')->latest()->take(5)->get();
-        return view('home.homepage',compact('posts'));
+        $categories = category::all();
+        $tags = tag::all();
+        return view('home.homepage',compact(['posts','categories','tags']));
     }
 
     public function viewpost($id){
@@ -46,8 +48,8 @@ class HomeController extends Controller
         return view('home.tagviewpage',compact('tags'));
     }
 
-    public function viewcategory($id){
-        $categories = post::where('');
+    public function categoryviewpage($slug){
+        $category_id = category::select('id')->where('slug',"=",$slug)->get();
         return view('home.categoryviewpage',compact('categories'));
     }
 

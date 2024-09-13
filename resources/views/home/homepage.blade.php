@@ -46,26 +46,17 @@
                 </div>
 
                 <ol class="list-group">
+                    @forelse ($categories as $category)
                     <li class="list-group-item d-flex justify-content-between align-items-start">
-                        <a href="#" class="ms-2 me-auto ">Subheading</a>
-                        <span class="badge bg-primary rounded-pill">14</span>
+                        <a href="{{ route('categoryviewpage',$category->slug) }}" class="ms-2 me-auto ">{{ $category->slug }}</a>
+                        <span class="badge bg-primary rounded-pill"></span>
                     </li>
+                    @empty
                     <li class="list-group-item d-flex justify-content-between align-items-start">
-                        <a href="#" class="ms-2 me-auto ">Subheading</a>
-                        <span class="badge bg-primary rounded-pill">14</span>
+                        <a href="#" class="ms-2 me-auto ">None</a>
+                        <span class="badge bg-primary rounded-pill">0</span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                        <a href="#" class="ms-2 me-auto ">Subheading</a>
-                        <span class="badge bg-primary rounded-pill">14</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                        <a href="#" class="ms-2 me-auto ">Subheading</a>
-                        <span class="badge bg-primary rounded-pill">14</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                        <a href="#" class="ms-2 me-auto ">Subheading</a>
-                        <span class="badge bg-primary rounded-pill">14</span>
-                    </li>
+                    @endforelse
                 </ol>
             </div>
             <br>
@@ -74,15 +65,11 @@
                     Tags
                 </div>
                 <div class="card-body">
-                    <a class="badge rounded-pill text-bg-primary" href="#">Laravel</a>
-                    <a class="badge rounded-pill text-bg-primary" href="#">Vue3</a>
-                    <a class="badge rounded-pill text-bg-primary" href="#">Quasar</a>
-                    <a class="badge rounded-pill text-bg-primary" href="#">PHP</a>
-                    <a class="badge rounded-pill text-bg-primary" href="#">MySQL</a>
-                    <a class="badge rounded-pill text-bg-primary" href="#">Javascript</a>
-                    <a class="badge rounded-pill text-bg-primary" href="#">HTML</a>
-                    <a class="badge rounded-pill text-bg-primary" href="#">CSS</a>
-                    <a class="badge rounded-pill text-bg-primary" href="#">AngularJS</a>
+                    @forelse ($tags as $tag)                        
+                    <a class="badge rounded-pill text-bg-primary" href="{{ url('') }}">{{ $tag->title }}</a>
+                    @empty
+                    <a class="badge rounded-pill text-bg-primary" href="#">None</a>                        
+                    @endforelse
 
                 </div>
 

@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Admin\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,12 +24,14 @@ use App\Http\Controllers\ProfileController;
 Route::get('/',[HomeController::class,'homepage'])->name('homepage');
 Route::get('/artical/{id}',[HomeController::class,'viewpost'])->name('viewpost');
 Route::get('/category',[HomeController::class,'categorypage'])->name('categorypage');
+Route::get('/category/{slug}',[HomeController::class,'categoryviewpage'])->name('categoryviewpage');
 Route::get('/tag',[HomeController::class,'tagpage'])->name('tagpage');
 Route::get('/about',[HomeController::class,'aboutpage'])->name('aboutpage');
 Route::get('/legal',[HomeController::class,'legalpage'])->name('legalpage');
 Route::get('/home',[HomeController::class,'index'])->middleware('auth')->name('home');
 Route::resource('/admin/post', PostController::class)->middleware('auth');
 Route::resource('/admin/category', CategoryController::class)->middleware('auth');
+Route::resource('/admin/tag', TagController::class)->middleware('auth');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
