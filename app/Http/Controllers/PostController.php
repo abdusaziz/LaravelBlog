@@ -115,7 +115,7 @@ class PostController extends Controller
         ]);
 
 
-        return redirect('/admin/post')->with('message', 'Post created successfully.');
+        return redirect('/admin/post')->with('message', 'Post Updated successfully.');
         }
     }
 
@@ -126,6 +126,8 @@ class PostController extends Controller
     {
         if(Auth::user()->usertype == 'admin'){
 
+            $post->delete();
+            return redirect('/admin/post')->with('message', 'Post Deleted successfully.');
         }
     }
 }

@@ -59,7 +59,11 @@
                                     @csrf
                                     <button class="btn btn-primary" type="submit">Edit</button>
                                 </form>
-                                <a href="" class="btn btn-danger">Delete</a>
+                                <form action="{{ route('post.destroy',$post->id) }}" method="POST" class="">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" name="Submit" class="btn btn-danger">Delete</button>
+                                </form>
                             </td>
                         </tr>
                         @empty
