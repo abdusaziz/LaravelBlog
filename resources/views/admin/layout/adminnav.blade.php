@@ -39,6 +39,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
+                            <a class="nav-link" href="{{route('homepage')}}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Blog
+                            </a>
                             
                             <div class="sb-sidenav-menu-heading">Interface</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePost" aria-expanded="false" aria-controls="collapsePost">
@@ -52,7 +56,7 @@
                                     <a class="nav-link" href="{{route('post.index')}}">View Posts</a>
                                 </nav>
                             </div>
-                            @if ( Auth::user()->usertype == 'Admin')
+                            @if ( Auth::user()->usertype == 'admin')
                                 
                             
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCategory" aria-expanded="false" aria-controls="collapseCategory">
@@ -83,7 +87,7 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        Start Bootstrap
+                        {{ Auth::user()->name }}
                     </div>
                 </nav>
             </div>

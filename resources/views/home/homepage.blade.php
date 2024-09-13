@@ -42,9 +42,7 @@
             @empty
                 
             @endforelse
-            <!-- Pager-->
-            <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts
-                    →</a></div>
+            {{ $posts->links('pagination::bootstrap-4') }}
         </div>
         <div class="col-md-4">
             <div class="card">

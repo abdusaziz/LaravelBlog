@@ -30,6 +30,8 @@
                             <th>Status</th>
                             <th>User Type</th>
                             <th>Image</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -41,7 +43,8 @@
                             <th>Status</th>
                             <th>User Type</th>
                             <th>Image</th>
-                            <th>Actions</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -59,6 +62,8 @@
                                     @csrf
                                     <button class="btn btn-primary" type="submit">Edit</button>
                                 </form>
+                            </td>
+                            <td>
                                 <form action="{{ route('post.destroy',$post->id) }}" method="POST" class="">
                                     @csrf
                                     @method('DELETE')
@@ -68,6 +73,7 @@
                         </tr>
                         @empty
                         <tr>
+                            <td>-</td>
                             <td>-</td>
                             <td>-</td>
                             <td>-</td>

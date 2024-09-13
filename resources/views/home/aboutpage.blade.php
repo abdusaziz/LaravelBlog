@@ -28,7 +28,7 @@
                     ex itaque esse est vero natus quae optio aperiam soluta voluptatibus corporis atque iste neque sit
                     tempora!</p>
             </div>
-    
+
         </div>
     </div>
 </main>

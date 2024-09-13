@@ -34,6 +34,7 @@
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}">Home</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 {{ Request::routeIs('categorypage') ? 'active' : '' }}" href="{{ url('/category') }}">Categories</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 {{ Request::routeIs('tagpage') ? 'active' : '' }}" href="{{ url('/tag') }}">Tags</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 {{ Request::routeIs('searchpage') ? 'active' : '' }}" href="{{ url('/search') }}">Search</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 {{ Request::routeIs('aboutpage') ? 'active' : '' }}" href="{{ url('/about') }}">About</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 {{ Request::routeIs('legalpage') ? 'active' : '' }}" href="{{ url('/legal') }}">Legal</a></li>
                         
