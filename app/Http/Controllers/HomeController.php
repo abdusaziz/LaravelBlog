@@ -17,6 +17,9 @@ class HomeController extends Controller
             $usertype = Auth()->user()->usertype;
         }
         if($usertype=='user'){
+            return redirect('/');
+        }
+        else if($usertype=='writter'){
             return view('admin.adminhome',compact('posts'));
         }
         else if($usertype=='admin'){

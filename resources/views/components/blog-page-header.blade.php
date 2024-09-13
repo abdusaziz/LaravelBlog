@@ -43,8 +43,11 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#!">{{ Auth::user()->name }}</a></li>
+                                    @if (Auth::user()->usertype == 'admin' || Auth::user()->usertype == 'writter' )                                        
                                     <li><a class="dropdown-item" href="#!">My Posts</a></li>
                                     <li><a class="dropdown-item" href="{{ route('home') }}">Dashboard</a></li>
+                                    @endif
                                     <li><hr class="dropdown-divider" /></li>
                                     <li>
                                         <form method="POST" action="{{ route('logout') }}">

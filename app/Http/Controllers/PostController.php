@@ -16,7 +16,13 @@ class PostController extends Controller
     public function index()
     {
         $posts = post::paginate(5);
-        return view('admin.adminpost')->with('posts',$posts);
+        if(Auth::user()->usertype == 'user'){
+            return redirect('/');
+        }elseif(Auth::user()->usertype == 'writter'){
+            return view('admin.adminpost')->with('posts',$posts);
+        }elseif(Auth::user()->usertype == 'admin'){
+            return view('admin.post.index')->with('posts',$posts);
+        }
     }
 
     /**
@@ -37,6 +43,7 @@ class PostController extends Controller
 
         // dd($request);
         $user = Auth()->user();
+        
         $post = new post();
 
         $post->title = $request->title;
@@ -58,7 +65,7 @@ class PostController extends Controller
 
 
         $post->save();
-        return redirect()->back()->with('message', 'Post created successfully.');
+        return view('admin.post.index')->with('message', 'Post created successfully.');
     }
 
     /**
@@ -75,7 +82,9 @@ class PostController extends Controller
      */
     public function edit(post $post)
     {
-        //
+        $tags = tag::all();
+        $categories = category::all();
+        return view('admin.post.edit',compact('post','tags','categories'));
     }
 
     /**
@@ -83,7 +92,31 @@ class PostController extends Controller
      */
     public function update(Request $request, post $post)
     {
-        //
+        if(Auth::user()->usertype == 'admin'){
+
+            // dd($request);
+        $user = Auth()->user();
+        $image = $request->image;
+        if($image){
+            $image_name = time()."_".$image->getClientOriginalName();
+            $request->image->move('post_images',$image_name);
+            $post->image = $image_name;
+        }
+        $post->tags()->sync($request->input('tag', []));
+        $post = $post->update([
+            "title"     =>  $request->title,
+            "description"     =>  $request->description,
+            "user_name"     =>  $user->name,
+            "user_id"     =>  $user->id,
+            "usertype"     =>  $user->usertype,
+            "post_status"     =>  1,
+            "category_id"     =>  $request->category,
+            "image"     =>  isset($image_name) ? $image_name : ""
+        ]);
+
+
+        return redirect('/admin/post')->with('message', 'Post created successfully.');
+        }
     }
 
     /**
@@ -91,6 +124,8 @@ class PostController extends Controller
      */
     public function destroy(post $post)
     {
-        //
+        if(Auth::user()->usertype == 'admin'){
+
+        }
     }
 }

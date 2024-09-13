@@ -24,10 +24,10 @@
                     <h2 class="post-title">{{ $post->title }}</h2>
                     <h3 class="post-subtitle">{{ $post->shortdescription }}...</h3>
                 </a>
-                <span>Category : {{ $post->category->title }}</span></br>
+                <span>Category : <a href="{{ route('categoryviewpage', $post->category->slug ) }}">{{ $post->category->title }}</a> </span></br>
                 <span>Tags :</span>
                 @forelse ($post->tags as $tag)                    
-                    <span class="badge rounded-pill text-bg-info"><a href="{{ route('tagpage',$tag->slug) }}">{{ $tag->title }}</a></span>
+                    <span class="badge rounded-pill text-bg-info"><a href="{{ route('tagviewpage',$tag->slug) }}">{{ $tag->title }}</a></span>
                 @empty                    
                 <span class="badge rounded-pill text-bg-info"><a href="#">-</a></span>
                 @endforelse

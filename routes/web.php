@@ -30,9 +30,10 @@ Route::get('/tag/{slug}',[HomeController::class,'tagviewpage'])->name('tagviewpa
 Route::get('/about',[HomeController::class,'aboutpage'])->name('aboutpage');
 Route::get('/legal',[HomeController::class,'legalpage'])->name('legalpage');
 Route::get('/home',[HomeController::class,'index'])->middleware('auth')->name('home');
+
 Route::resource('/admin/post', PostController::class)->middleware('auth');
-Route::resource('/admin/category', CategoryController::class)->middleware('auth');
-Route::resource('/admin/tag', TagController::class)->middleware('auth');
+Route::resource('/admin/category', CategoryController::class)->middleware(['auth','admin']);
+Route::resource('/admin/tag', TagController::class)->middleware(['auth','admin']);
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

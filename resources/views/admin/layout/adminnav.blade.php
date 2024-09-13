@@ -49,9 +49,12 @@
                             <div class="collapse" id="collapsePost" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{{route('post.create')}}">Create Post</a>
-                                    <a class="nav-link" href="{{route('post.index')}}">View POsts</a>
+                                    <a class="nav-link" href="{{route('post.index')}}">View Posts</a>
                                 </nav>
                             </div>
+                            @if ( Auth::user()->usertype == 'Admin')
+                                
+                            
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCategory" aria-expanded="false" aria-controls="collapseCategory">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Category
@@ -74,6 +77,7 @@
                                     <a class="nav-link" href="{{route('tag.index')}}">View tag</a>
                                 </nav>
                             </div>
+                            @endif
                             
                         </div>
                     </div>
