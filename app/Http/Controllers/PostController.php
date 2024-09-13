@@ -44,7 +44,7 @@ class PostController extends Controller
         $post->user_name = $user->name;
         $post->user_id = $user->id;
         $post->usertype = $user->usertype;
-        $post->post_status = "Active";
+        $post->post_status = 0;
         $post->category_id     =   $request->category;
 
         $image = $request->image;

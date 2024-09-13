@@ -16,4 +16,10 @@ class tag extends Model
         'content',
         'user_id'
     ];
+
+    public function posts()
+    {
+        // Correct the relationship to belongsToMany
+        return $this->belongsToMany(Post::class, 'post_tag');
+    }
 }

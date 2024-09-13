@@ -16,4 +16,10 @@ class category extends Model
         'content',
         'user_id'
     ] ;
+
+
+
+    public function posts(){
+        return $this->hasMany(post::class);
+    }
 }

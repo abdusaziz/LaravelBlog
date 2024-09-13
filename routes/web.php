@@ -26,6 +26,7 @@ Route::get('/artical/{id}',[HomeController::class,'viewpost'])->name('viewpost')
 Route::get('/category',[HomeController::class,'categorypage'])->name('categorypage');
 Route::get('/category/{slug}',[HomeController::class,'categoryviewpage'])->name('categoryviewpage');
 Route::get('/tag',[HomeController::class,'tagpage'])->name('tagpage');
+Route::get('/tag/{slug}',[HomeController::class,'tagviewpage'])->name('tagviewpage');
 Route::get('/about',[HomeController::class,'aboutpage'])->name('aboutpage');
 Route::get('/legal',[HomeController::class,'legalpage'])->name('legalpage');
 Route::get('/home',[HomeController::class,'index'])->middleware('auth')->name('home');

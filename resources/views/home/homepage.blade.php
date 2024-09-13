@@ -24,6 +24,13 @@
                     <h2 class="post-title">{{ $post->title }}</h2>
                     <h3 class="post-subtitle">{{ $post->shortdescription }}...</h3>
                 </a>
+                <span>Category : {{ $post->category->title }}</span></br>
+                <span>Tags :</span>
+                @forelse ($post->tags as $tag)                    
+                    <span class="badge rounded-pill text-bg-info"><a href="{{ route('tagpage',$tag->slug) }}">{{ $tag->title }}</a></span>
+                @empty                    
+                <span class="badge rounded-pill text-bg-info"><a href="#">-</a></span>
+                @endforelse
                 <p class="post-meta">
                     Posted by
                     <a href="#!">{{ $post->user_name }}</a>
@@ -66,7 +73,7 @@
                 </div>
                 <div class="card-body">
                     @forelse ($tags as $tag)                        
-                    <a class="badge rounded-pill text-bg-primary" href="{{ url('') }}">{{ $tag->title }}</a>
+                    <a class="badge rounded-pill text-bg-primary" href="{{ route('tagviewpage',$tag->slug) }}">{{ $tag->title }}</a>
                     @empty
                     <a class="badge rounded-pill text-bg-primary" href="#">None</a>                        
                     @endforelse

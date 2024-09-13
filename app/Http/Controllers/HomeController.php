@@ -7,6 +7,7 @@ use App\Models\post;
 use App\Models\tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -27,30 +28,74 @@ class HomeController extends Controller
     }
 
     public function homepage(){
-        $posts = Post::selectRaw('posts.*, SUBSTRING(description, 1, 100) as shortdescription')->latest()->take(5)->get();
+        $posts = Post::with(['tags','category'])->selectRaw('posts.*, SUBSTRING(description, 1, 100) as shortdescription')
+        ->where("post_status","=","1")
+        ->latest()->take(5)->get();
         $categories = category::all();
         $tags = tag::all();
         return view('home.homepage',compact(['posts','categories','tags']));
     }
 
     public function viewpost($id){
-        $post = Post::find($id);
+        $post = Post::with(['category','tags'])->find($id);
         return view('home.articalviewpage',compact('post'));
     }
 
     public function categorypage(){
         $categories = category::all();
-        return view('home.categorypage',compact('categories'));
+        $tags = tag::all();
+        $latest_post_category_id = post::select('category_id')->latest()->first()->category_id;
+        $posts = Post::selectRaw('posts.*, SUBSTRING(description, 1, 100) as shortdescription')
+        ->where("post_status","=","1")
+        ->where("category_id","=",$latest_post_category_id)
+        ->get();
+        return view('home.categorypage',compact('categories','posts','tags'));
     }
 
     public function tagpage(){
         $tags = tag::all();
-        return view('home.tagviewpage',compact('tags'));
+        $categories = category::all();
+        // $latest_post_id = post::select('id')->latest()->first()->id;
+        // $tag_id = DB::table('post_tag')->select('tag_id')->where('post_id', $latest_post_id)->first()->tag_id;
+        // $tag = DB::table('post_tag')->select('post_id')->where('tag_id', $tag_id)->first()->tag_id;
+        $latest_post_category_id = post::select('category_id')->latest()->first()->category_id;
+        $posts = Post::selectRaw('posts.*, SUBSTRING(description, 1, 100) as shortdescription')
+        ->where("post_status","=","1")
+        ->where("category_id","=",$latest_post_category_id)
+        ->get();
+        return view('home.tagviewpage',compact('categories','posts','tags'));
     }
 
     public function categoryviewpage($slug){
-        $category_id = category::select('id')->where('slug',"=",$slug)->get();
-        return view('home.categoryviewpage',compact('categories'));
+
+        $category = category::where('slug', '=', $slug)->first();
+
+        if (!$category) { abort(404, 'Tag not found.'); }
+
+        $posts = $category->posts()->where("post_status", "=", "1")
+            ->selectRaw('posts.*, SUBSTRING(description, 1, 100) as shortdescription')
+            ->get();
+
+        $categories = category::all();
+        $tags = tag::all();
+
+        return view('home.categoryviewpage', compact('posts', 'category','categories', 'tags'));
+    }
+
+    public function tagviewpage($slug)
+    {
+        $tag = Tag::where('slug', '=', $slug)->first();
+
+        if (!$tag) { abort(404, 'Tag not found.'); }
+
+        $posts = $tag->posts()->where("post_status", "=", "1")
+            ->selectRaw('posts.*, SUBSTRING(description, 1, 100) as shortdescription')
+            ->get();
+        
+        $categories = category::all();
+        $tags = tag::all();
+
+        return view('home.tagviewpage', compact('posts', 'tag','categories', 'tags'));
     }
 
     public function aboutpage(){
