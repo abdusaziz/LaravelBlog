@@ -36,6 +36,12 @@
                         <label for="recipient-name" class="col-form-label">content:</label>
                         <input type="text" name="content" class="form-control" id="recipient-name">
                     </div>
+                    <div class="mb-3">
+                        <select class="form-select" id="select-post_status" data-placeholder="Status" name="post_status">
+                            <option value="1">Active</option>
+                            <option value="0">Deactive</option>
+                        </select>
+                    </div>
 
                     <input type="Submit" name="create" class="btn btn-primary">
                 </form>
@@ -44,3 +50,12 @@
     </div>
 </main>
 @endsection
+
+<script>
+$( '#select-post_status' ).select2( {
+    theme: "bootstrap-5",
+    width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+    placeholder: $( this ).data( 'placeholder' ),
+    closeOnSelect: false,
+} );
+</script>

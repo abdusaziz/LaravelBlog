@@ -43,7 +43,7 @@ class PostController extends Controller
 
         // dd($request);
         $user = Auth()->user();
-        
+
         $post = new post();
 
         $post->title = $request->title;
@@ -65,7 +65,8 @@ class PostController extends Controller
 
 
         $post->save();
-        return view('admin.post.index')->with('message', 'Post created successfully.');
+        $posts = post::paginate(5);
+        return view('admin.post.index', ['message' => 'Post created successfully.', "posts"=> $posts]);
     }
 
     /**
@@ -110,8 +111,7 @@ class PostController extends Controller
             "user_id"     =>  $user->id,
             "usertype"     =>  $user->usertype,
             "post_status"     =>  1,
-            "category_id"     =>  $request->category,
-            "image"     =>  isset($image_name) ? $image_name : ""
+            "category_id"     =>  $request->category
         ]);
 
 

@@ -40,26 +40,30 @@
                         <input type="file" class="form-control" name="image"  id="message-text">
                         <span>{{ $post->image }}</span>
                     </div>
-                    <select class="form-select" id="select-category" data-placeholder="Choose anything" name="category">                        
+                    <select class="form-select" id="select-category" data-placeholder="Choose anything" name="category">
                             <option>Select #</option>
-                            @forelse ($categories as $category)                                
-                            <option 
+                            @forelse ($categories as $category)
+                            <option
                             @if ($category->id == $post->category_id)
                                 selected
-                            @endif 
+                            @endif
                             value="{{ $category->id }}">{{ $category->title }}</option>
                             @empty
-                                
+
                             @endforelse
-                        
-                    </select>  
+
+                    </select> 
                     <select class="form-select" id="multiple-select-tags" data-placeholder="Choose tags" name="tag[]" multiple>
                         <option value="">Select tags</option>
                         @foreach ($tags as $tag)
                             <option value="{{ $tag->id }}" @if(in_array($tag->id, $post->tags->pluck('id')->toArray())) selected @endif>{{ $tag->title }}</option>
                         @endforeach
-                    </select> 
-            
+                    </select>
+                    <select class="form-select" id="select-post_status" data-placeholder="Status" name="post_status">
+                        <option value="1" @if($post->post_status==1) selected @endif>Active</option>
+                        <option value="0" @if($post->post_status==0) selected @endif>Deactive</option>
+                    </select>
+
                 </div>
                     <input type="Submit" name="create" class="btn btn-primary">
                 </form>
@@ -79,6 +83,12 @@
     closeOnSelect: false,
 } );
     $( '#select-category' ).select2( {
+    theme: "bootstrap-5",
+    width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+    placeholder: $( this ).data( 'placeholder' ),
+    closeOnSelect: false,
+} );
+    $( '#select-post_status' ).select2( {
     theme: "bootstrap-5",
     width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
     placeholder: $( this ).data( 'placeholder' ),
