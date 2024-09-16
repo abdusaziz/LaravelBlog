@@ -22,6 +22,7 @@ Route::get('/legal',[HomeController::class,'legalpage'])->name('legalpage');
 Route::get('/home',[HomeController::class,'index'])->middleware('auth')->name('home');
 
 Route::resource('/admin/post', PostController::class)->middleware('auth');
+Route::post('/admin/post/{id}/status', [PostController::class,'statusupdate'])->middleware('auth')->name('statusupdate');
 Route::resource('/admin/category', CategoryController::class)->middleware(['auth','admin']);
 Route::resource('/admin/tag', TagController::class)->middleware(['auth','admin']);
 
